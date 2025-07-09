@@ -6,105 +6,237 @@
     <title>Ward Family Cleaning - Commercial & Airbnb Cleaning Specialists</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .mobile-menu-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .hero-text {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.4);
+        }
+        
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: #f97316;
+            transition: left 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            left: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-text {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
 </head>
 <body class="font-sans bg-orange-50">
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white shadow-md z-50">
-        <div class="container mx-auto px-6 py-3">
+    <nav class="fixed w-full bg-white shadow-lg z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 lg:px-6 py-3">
             <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold text-orange-500">
-                    <i class="fas fa-building mr-2"></i>Ward Family Cleaning
+                <div class="text-xl lg:text-2xl font-bold text-orange-500 flex items-center">
+                    <i class="fas fa-building mr-2"></i>
+                    <span>Ward Family Cleaning</span>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="hover:text-orange-500 transition duration-300">Home</a>
-                    <a href="#services" class="hover:text-orange-500 transition duration-300">Services</a>
-                    <a href="#about" class="hover:text-orange-500 transition duration-300">Our Family</a>
-                    <a href="#contact" class="hover:text-orange-500 transition duration-300">Contact</a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 lg:space-x-8">
+                    <a href="#home" class="nav-link hover:text-orange-500 transition duration-300 py-2">Home</a>
+                    <a href="#services" class="nav-link hover:text-orange-500 transition duration-300 py-2">Services</a>
+                    <a href="#about" class="nav-link hover:text-orange-500 transition duration-300 py-2">Our Family</a>
+                    <a href="#quote" class="nav-link hover:text-orange-500 transition duration-300 py-2">Get Quote</a>
+                    <a href="#contact" class="nav-link hover:text-orange-500 transition duration-300 py-2">Contact</a>
                 </div>
-                <button class="md:hidden" onclick="toggleMenu()">
-                    <i class="fas fa-bars text-2xl"></i>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden focus:outline-none p-2" aria-label="Toggle menu">
+                    <i id="menu-icon" class="fas fa-bars text-xl"></i>
                 </button>
             </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#home" class="block px-4 py-2 hover:bg-orange-100">Home</a>
-            <a href="#services" class="block px-4 py-2 hover:bg-orange-100">Services</a>
-            <a href="#about" class="block px-4 py-2 hover:bg-orange-100">Our Family</a>
-            <a href="#contact" class="block px-4 py-2 hover:bg-orange-100">Contact</a>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden mobile-menu-transition overflow-hidden max-h-0 opacity-0">
+                <div class="pt-4 pb-2 space-y-1">
+                    <a href="#home" class="block px-4 py-3 hover:bg-orange-100 rounded-lg transition duration-200">Home</a>
+                    <a href="#services" class="block px-4 py-3 hover:bg-orange-100 rounded-lg transition duration-200">Services</a>
+                    <a href="#about" class="block px-4 py-3 hover:bg-orange-100 rounded-lg transition duration-2200">Our Family</a>
+                    <a href="#quote" class="block px-4 py-3 hover:bg-orange-100 rounded-lg transition duration-200">Get Quote</a>
+                    <a href="#contact" class="block px-4 py-3 hover:bg-orange-100 rounded-lg transition duration-200">Contact</a>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-20 bg-gradient-to-b from-orange-100 to-orange-50">
-        <div class="container mx-auto px-6 py-16 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-gray-800">Your Trusted Commercial & Airbnb Cleaning Team ✨</h1>
-            <p class="text-xl mb-8 text-gray-600">Professional cleaning services by the Ward family - Making businesses shine and guests smile!</p>
-            <a href="#quote" class="bg-orange-500 text-white px-8 py-4 rounded-full hover:bg-orange-600 transition duration-300 text-lg font-semibold inline-flex items-center">
-                <i class="fas fa-calendar-check mr-2"></i>Get Your Quote
-            </a>
+    <section id="home" class="pt-16 bg-gradient-to-br from-orange-100 via-orange-50 to-white min-h-screen flex items-center">
+        <div class="container mx-auto px-4 lg:px-6 py-12 lg:py-16">
+            <div class="text-center max-w-4xl mx-auto">
+                <h1 class="hero-text text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    Your Trusted Commercial & Airbnb Cleaning Team ✨
+                </h1>
+                <p class="text-lg md:text-xl mb-8 text-gray-600 max-w-2xl mx-auto">
+                    Professional cleaning services by the Ward family - Making businesses shine and guests smile!
+                </p>
+                <a href="#quote" class="btn-primary text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-lg font-semibold inline-flex items-center">
+                    <i class="fas fa-calendar-check mr-2"></i>
+                    Get Your Quote
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-16">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Our Services</h2>
-            <p class="text-center mb-12 text-gray-600">Specialized cleaning solutions for your business and rental properties 🧹</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="p-6 bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300">
-                    <div class="text-center">
-                        <i class="fas fa-building text-5xl text-orange-500 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Commercial Cleaning</h3>
-                        <p class="text-gray-600 mb-4">Professional cleaning for offices, retail spaces, and businesses.</p>
-                        <ul class="text-left text-gray-600 space-y-2">
-                            <li><i class="fas fa-check text-green-500 mr-2"></i>Regular scheduled maintenance</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i>Floor care & window cleaning</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i>Break room & restroom sanitation</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i>Evening & weekend availability</li>
-                        </ul>
+    <section id="services" class="py-12 md:py-16 lg:py-20">
+        <div class="container mx-auto px-4 lg:px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">Our Services</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Specialized cleaning solutions for your business and rental properties 🧹
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
+                <!-- Commercial Cleaning -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg p-6 lg:p-8">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-building text-4xl lg:text-5xl text-orange-500 mb-4"></i>
+                        <h3 class="text-xl lg:text-2xl font-bold mb-3 text-gray-800">Commercial Cleaning</h3>
+                        <p class="text-gray-600 mb-6">Professional cleaning for offices, retail spaces, and businesses.</p>
                     </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Regular scheduled maintenance</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Floor care & window cleaning</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Break room & restroom sanitation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Evening & weekend availability</span>
+                        </li>
+                    </ul>
                 </div>
-                <div class="p-6 bg-white rounded-2xl shadow-lg transform hover:scale-105 transition duration-300">
-                    <div class="text-center">
-                        <i class="fas fa-hotel text-5xl text-orange-500 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Airbnb Turnover Service</h3>
-                        <p class="text-gray-600 mb-4">Swift, thorough cleaning between guest stays.</p>
-                        <ul class="text-left text-gray-600 space-y-2">
-                            <li><i class="fas fa-check text-green-500 mr-2"></i>Same-day turnovers available</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i>Restocking services</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i>Linen change & bed making</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i>Detailed cleaning checklist</li>
-                        </ul>
+                
+                <!-- Airbnb Service -->
+                <div class="card-hover bg-white rounded-2xl shadow-lg p-6 lg:p-8">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-home text-4xl lg:text-5xl text-orange-500 mb-4"></i>
+                        <h3 class="text-xl lg:text-2xl font-bold mb-3 text-gray-800">Airbnb Turnover Service</h3>
+                        <p class="text-gray-600 mb-6">Swift, thorough cleaning between guest stays.</p>
                     </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Same-day turnovers available</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Restocking services</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Linen change & bed making</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Detailed cleaning checklist</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 bg-gradient-to-b from-orange-50 to-orange-100">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2">
-                    <img src="\Users\tronn\Desktop\Templates\images\place.png" alt="The Ward Family" class="rounded-2xl shadow-lg transform -rotate-2">
+    <section id="about" class="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-orange-50 to-orange-100">
+        <div class="container mx-auto px-4 lg:px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 max-w-6xl mx-auto">
+                <div class="lg:w-1/2 order-2 lg:order-1">
+                    <div class="bg-gradient-to-br from-orange-200 to-orange-300 rounded-2xl p-8 shadow-lg">
+                        <div class="text-center">
+                            <i class="fas fa-users text-6xl text-orange-600 mb-4"></i>
+                            <p class="text-orange-800 text-lg font-medium">Family Photo Coming Soon!</p>
+                            <p class="text-orange-700 text-sm mt-2">Mike & Sarah Ward</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="md:w-1/2">
-                    <h2 class="text-3xl font-bold mb-6 text-gray-800">Meet the Ward Family! 👋</h2>
-                    <p class="mb-4 text-gray-600 text-lg">We're Mike and Sarah Ward, and along with our fantastic team, we've been keeping businesses spotless and Airbnbs guest-ready since 2015.</p>
-                    <p class="mb-6 text-gray-600 text-lg">What makes us different? We bring that special family touch to every space we clean, treating your property with the same care and attention we'd give our own. ❤️</p>
+                
+                <div class="lg:w-1/2 order-1 lg:order-2">
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-gray-800">
+                        Meet the Ward Family! 👋
+                    </h2>
+                    <p class="mb-4 text-gray-600 text-lg leading-relaxed">
+                        We're Mike and Sarah Ward, and along with our fantastic team, we've been keeping businesses spotless and Airbnbs guest-ready since 2015.
+                    </p>
+                    <p class="mb-8 text-gray-600 text-lg leading-relaxed">
+                        What makes us different? We bring that special family touch to every space we clean, treating your property with the same care and attention we'd give our own. ❤️
+                    </p>
+                    
                     <div class="space-y-4">
                         <div class="flex items-center space-x-4">
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <span>Trusted by local businesses</span>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <span class="text-gray-700">Trusted by local businesses</span>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <span>5-star rated on Airbnb</span>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <span class="text-gray-700">5-star rated on Airbnb</span>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <i class="fas fa-star text-yellow-400"></i>
-                            <span>Available 7 days a week</span>
+                            <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            <span class="text-gray-700">Available 7 days a week</span>
                         </div>
                     </div>
                 </div>
@@ -113,130 +245,128 @@
     </section>
 
     <!-- Quote Form Section -->
-    <section id="quote" class="py-16">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Get a Free Quote!</h2>
-            <p class="text-center mb-12 text-gray-600">Let's discuss how we can help with your cleaning needs ✨</p>
-            <div class="max-w-lg mx-auto">
-                <form id="quoteForm" class="space-y-6 bg-white p-8 rounded-2xl shadow-lg">
-                    <div>
-                        <label class="block mb-2 font-medium">Your Name 😊</label>
-                        <input type="text" required class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-orange-500">
-                    </div>
-                    <div>
-                        <label class="block mb-2 font-medium">Email 📧</label>
-                        <input type="email" required class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-orange-500">
-                    </div>
-                    <div>
-                        <label class="block mb-2 font-medium">Phone 📱</label>
-                        <input type="tel" required class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-orange-500">
-                    </div>
-                    <div>
-                        <label class="block mb-2 font-medium">Service Type 🧹</label>
-                        <select id="serviceType" onchange="updateSizeOptions()" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-orange-500">
-                            <option value="commercial">Commercial Cleaning</option>
-                            <option value="airbnb">Airbnb Turnover</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block mb-2 font-medium">Property Size</label>
-                        <select id="propertySize" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-orange-500">
-                            <!-- Options will be populated by JavaScript -->
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block mb-2 font-medium">Cleaning Frequency</label>
-                        <select class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-orange-500">
-                            <option>One-time Clean</option>
-                            <option>Weekly</option>
-                            <option>Bi-weekly</option>
-                            <option>Monthly</option>
-                            <option>On-call Basis</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block mb-2 font-medium">Additional Notes 💭</label>
-                        <textarea rows="4" placeholder="Tell us about your specific needs..." class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-orange-500"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition duration-300 text-lg font-semibold">
-                        Get Quote <i class="fas fa-paper-plane ml-2"></i>
-                    </button>
-                </form>
+    <section id="quote" class="py-12 md:py-16 lg:py-20">
+        <div class="container mx-auto px-4 lg:px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">Get a Free Quote!</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Let's discuss how we can help with your cleaning needs ✨
+                </p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white p-6 lg:p-8 rounded-2xl shadow-lg">
+                    <div class="powr-form-builder" id="ca46b8a6_1752071526"></div>
+                    <script src="https://www.powr.io/powr.js?platform=html"></script>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-gradient-to-b from-orange-100 to-orange-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Let's Talk!</h2>
-            <p class="text-center mb-12 text-gray-600">We're here to help with your cleaning needs 🤗</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <i class="fas fa-phone text-4xl text-orange-500 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Call Us</h3>
-                    <p class="text-gray-600">(555) 123-4567</p>
+    <section id="contact" class="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-orange-100 to-orange-50">
+        <div class="container mx-auto px-4 lg:px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">Let's Talk!</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    We're here to help with your cleaning needs 🤗
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-4xl mx-auto">
+                <div class="card-hover bg-white p-6 lg:p-8 rounded-2xl shadow-lg text-center">
+                    <i class="fas fa-phone text-4xl lg:text-5xl text-orange-500 mb-4"></i>
+                    <h3 class="text-xl lg:text-2xl font-bold mb-3 text-gray-800">Call Us</h3>
+                    <p class="text-gray-600 text-lg">(555) 123-4567</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <i class="fas fa-envelope text-4xl text-orange-500 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Email Us</h3>
-                    <p class="text-gray-600">hello@wardfamilycleaning.com</p>
+                
+                <div class="card-hover bg-white p-6 lg:p-8 rounded-2xl shadow-lg text-center">
+                    <i class="fas fa-envelope text-4xl lg:text-5xl text-orange-500 mb-4"></i>
+                    <h3 class="text-xl lg:text-2xl font-bold mb-3 text-gray-8800">Email Us</h3>
+                    <p class="text-gray-600 text-lg break-all">hello@wardfamilycleaning.com</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <i class="fas fa-clock text-4xl text-orange-500 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Business Hours</h3>
-                    <p class="text-gray-600">Every day: 8AM - 6PM</p>
+                
+                <div class="card-hover bg-white p-6 lg:p-8 rounded-2xl shadow-lg text-center">
+                    <i class="fas fa-clock text-4xl lg:text-5xl text-orange-500 mb-4"></i>
+                    <h3 class="text-xl lg:text-2xl font-bold mb-3 text-gray-800">Business Hours</h3>
+                    <p class="text-gray-600 text-lg">Every day: 8AM - 6PM</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-orange-100 text-gray-600 py-8">
-        <div class="container mx-auto px-6 text-center">
-            <p>Made with ❤️ by the Ward Family | Keeping spaces clean since 2015</p>
+    <footer class="bg-orange-200 text-gray-700 py-8">
+        <div class="container mx-auto px-4 lg:px-6 text-center">
+            <p class="text-lg">Made with ❤️ by the Ward Family | Keeping spaces clean since 2015</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        let isMenuOpen = false;
+
+        function toggleMobileMenu() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+                mobileMenu.style.opacity = '1';
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                mobileMenu.style.maxHeight = '0';
+                mobileMenu.style.opacity = '0';
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
         }
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) {
+                    toggleMobileMenu();
+                }
             });
         });
 
-        // Dynamic property size options
-        function updateSizeOptions() {
-            const serviceType = document.getElementById('serviceType').value;
-            const propertySizeSelect = document.getElementById('propertySize');
-            propertySizeSelect.innerHTML = ''; // Clear existing options
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isMenuOpen && !mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                toggleMobileMenu();
+            }
+        });
 
-            if (serviceType === 'commercial') {
-                const commercialSizes = [
-                    'Under 1,000 sq ft',
-                    '1,000 - 2,500 sq ft',
-                    '2,500 - 5,000 sq ft',
-                    '5,000 - 10,000 sq ft',
-                    'Over 10,000 sq ft'
-                ];
-                commercialSizes.forEach(size => {
-                    const option = document.createElement('option');
-                    option.text = size;
-                    propertySizeSelect.add(option);
-                });
-            } else if (serviceType === 'airbnb') {
-                const airbnbSizes = [
-                    'Studio',
-                    '1 Bedroom',
-                    '2 Bedrooms',
-                    '<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95c444b83e9e9e76","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"5070e21320304a1ba2b0a42ce9682840"}' crossorigin="anonymous"></script>
+        // Smooth scrolling with offset for fixed navbar
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
+        });
+    </script>
+</body>
+</html>
