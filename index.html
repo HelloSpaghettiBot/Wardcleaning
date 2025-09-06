@@ -90,11 +90,11 @@
   </nav>
 
   <!-- Hero Section -->
-  <section id="home" class="pt-16 bg-gradient-to-br from-green-100 via-green-50 to-white min-h-screen flex items-center">
-    <div class="container mx-auto px-4 lg:px-6 py-12 lg:py-16">
-      <div class="grid lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
+  <section id="home" class="h-screen flex items-center bg-gradient-to-br from-green-100 via-green-50 to-white pt-16">
+    <div class="container mx-auto px-4 lg:px-6">
+      <div class="grid lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto h-full">
         <!-- Text -->
-        <div class="text-center lg:text-left">
+        <div class="text-center lg:text-left flex flex-col justify-center h-full">
           <h1 class="hero-text text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Your Trusted Commercial Cleaning Team ✨
           </h1>
@@ -107,18 +107,18 @@
           </a>
         </div>
 
-        <!-- Main hero image (updated) -->
-        <div class="order-first lg:order-none">
+        <!-- Image -->
+        <div class="flex justify-center h-full order-first lg:order-none">
           <img src="https://raw.githubusercontent.com/HelloSpaghettiBot/Wardcleaning/refs/heads/main/IMG_20250906_145608.png"
                alt="Ward Family Cleaning in action"
-               class="w-full rounded-2xl shadow-xl object-cover h-72 md:h-96"/>
+               class="w-full rounded-2xl shadow-xl object-cover h-full"/>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="min-h-screen flex items-center">
+  <section id="services" class="h-screen flex items-center">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">Our Services</h2>
@@ -129,7 +129,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
         <!-- Commercial Cleaning -->
-        <div class="card-hover bg-white rounded-2xl shadow-lg p-6 lg:p-8">
+        <div class="card-hover bg-white rounded-2xl shadow-lg p-6 lg:p-8 flex flex-col justify-center">
           <div class="text-center mb-6">
             <i class="fas fa-building text-4xl lg:text-5xl" style="color:var(--brand)"></i>
             <h3 class="text-xl lg:text-2xl font-bold mb-3 text-gray-800">Commercial Cleaning</h3>
@@ -144,7 +144,7 @@
         </div>
 
         <!-- Airbnb Service -->
-        <div class="card-hover bg-white rounded-2xl shadow-lg p-6 lg:p-8">
+        <div class="card-hover bg-white rounded-2xl shadow-lg p-6 lg:p-8 flex flex-col justify-center">
           <div class="text-center mb-6">
             <i class="fas fa-home text-4xl lg:text-5xl" style="color:var(--brand)"></i>
             <h3 class="text-xl lg:text-2xl font-bold mb-3 text-gray-800">Airbnb Turnover Service</h3>
@@ -170,20 +170,20 @@
   </section>
 
   <!-- About Section -->
-  <section id="about" class="min-h-screen flex items-center">
+  <section id="about" class="h-screen flex items-center bg-green-100">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">About Us</h2>
         <p class="text-gray-600 max-w-2xl mx-auto">Family-owned, community-focused, detail-driven.</p>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
-        <div class="flex justify-center">
+      <div class="grid lg:grid-cols-2 gap-8 items-center max-w-5xl mx-auto h-full">
+        <div class="flex justify-center h-full items-center">
           <img src="https://raw.githubusercontent.com/HelloSpaghettiBot/Wardcleaning/refs/heads/main/1000015868.png"
                alt="Ward Family"
-               class="mx-auto rounded-xl shadow-lg w-72 md:w-96 object-cover"/>
+               class="mx-auto rounded-xl shadow-lg w-72 md:w-96 object-cover h-full"/>
         </div>
-        <div>
+        <div class="flex flex-col justify-center h-full">
           <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-3">Ward Family Cleaning</h3>
           <p class="text-green-900 text-base md:text-lg font-medium leading-relaxed">
             Proudly run by <span class="font-semibold">Zakk Ward</span> and his mother, <span class="font-semibold">Katie</span>. 
@@ -199,7 +199,7 @@
   </section>
 
   <!-- Quote Form Section -->
-  <section id="quote" class="min-h-screen flex items-center">
+  <section id="quote" class="h-screen flex items-center">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">Get a Free Quote!</h2>
@@ -216,7 +216,7 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="min-h-screen flex items-center bg-gradient-to-br from-green-100 to-green-50">
+  <section id="contact" class="h-screen flex items-center bg-gradient-to-br from-green-100 to-green-50">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">Let's Talk!</h2>
@@ -281,19 +281,16 @@
     }
     mobileMenuBtn.addEventListener('click',toggleMobileMenu);
 
-    // Close mobile menu when clicking on links
     document.querySelectorAll('#mobile-menu a').forEach(link=>{
       link.addEventListener('click',()=>{ if(isMenuOpen){ toggleMobileMenu(); }});
     });
 
-    // Close mobile menu when clicking outside
     document.addEventListener('click',(e)=>{
       if(isMenuOpen && !mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)){
         toggleMobileMenu();
       }
     });
 
-    // Smooth scrolling with offset for fixed navbar
     document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
       anchor.addEventListener('click',function(e){
         e.preventDefault();
@@ -306,7 +303,6 @@
       });
     });
 
-    // Add navbar shadow on scroll
     window.addEventListener('scroll',()=>{
       const nav=document.querySelector('nav');
       if(window.scrollY>50){ nav.classList.add('shadow-xl'); }
