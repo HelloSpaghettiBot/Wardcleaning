@@ -1,12 +1,55 @@
-<style>
-  /* Adding scroll-snap rules */
-  body {
-    scroll-snap-type: y mandatory;
-  }
-  .full-screen-section {
-    height: 100vh; /* Each section takes up exactly one screen height */
-    scroll-snap-align: start;
-  }
-</style>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleaning Ward - Commercial Cleaning Specialists</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --nav-height: 72px;
+        }
 
-<section class="full-screen-section">...</section>
+        html {
+            scroll-padding-top: var(--nav-height);
+        }
+
+        body {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+        }
+
+        .full-screen-section {
+            min-height: 100vh;
+            height: 100dvh;
+            scroll-snap-align: start;
+            padding-top: var(--nav-height);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Ensure nav stays on top */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 50;
+            background: white;
+        }
+
+        /* Adjust section padding to account for fixed nav */
+        section {
+            margin-top: calc(-1 * var(--nav-height));
+            padding-top: var(--nav-height);
+        }
+    </style>
+</head>
+<body>
+    <!-- Your existing body content here -->
+</body>
+</html>
