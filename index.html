@@ -7,31 +7,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --nav-height: 72px;
+            --nav-height: 72px; /* adjust to your actual nav height */
         }
 
         html {
             scroll-padding-top: var(--nav-height);
+            scroll-behavior: smooth;
+            box-sizing: border-box;
         }
+
+        *, *::before, *::after { box-sizing: inherit; }
 
         body {
+            margin: 0;
             scroll-snap-type: y mandatory;
-            overflow-y: scroll;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .full-screen-section {
-            min-height: 100vh;
-            height: 100dvh;
-            scroll-snap-align: start;
-            padding-top: var(--nav-height);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        /* Ensure nav stays on top */
+        /* fixed navbar */
         nav {
             position: fixed;
             top: 0;
@@ -39,17 +33,44 @@
             right: 0;
             height: var(--nav-height);
             z-index: 50;
-            background: white;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(4px);
         }
 
-        /* Adjust section padding to account for fixed nav */
-        section {
-            margin-top: calc(-1 * var(--nav-height));
-            padding-top: var(--nav-height);
+        /* Each section should fit exactly into the viewport below the nav.
+           Use calc with fallback to 100vh for browsers that don't support dynamic 100dvh. */
+        .full-screen-section {
+            min-height: calc(100dvh - var(--nav-height));
+            min-height: calc(100vh - var(--nav-height));
+            height: calc(100dvh - var(--nav-height));
+            height: calc(100vh - var(--nav-height));
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem; /* inner spacing so content doesn't hug edges on mobile */
+            box-sizing: border-box;
         }
+
+        /* Small screens: reduce nav height if needed to keep sections visible */
+        @media (max-height: 640px) {
+            :root { --nav-height: 64px; }
+        }
+
+        /* Remove previous overlap-causing rules: don't use negative margins on section */
+        section { margin-top: 0; }
     </style>
 </head>
 <body>
-    <!-- Your existing body content here -->
+    <nav>
+        <!-- your nav here -->
+    </nav>
+
+    <!-- Example sections; replace with your actual content -->
+    <section id="home" class="full-screen-section">Home</section>
+    <section id="services" class="full-screen-section">Services</section>
+    <section id="about" class="full-screen-section">About</section>
+    <section id="contact" class="full-screen-section">Contact</section>
 </body>
 </html>
