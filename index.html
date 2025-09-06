@@ -13,30 +13,19 @@
       --brand:#2e7d32;
       --brand-600:#256a29;
       --brand-700:#1f5b23;
-      --nav-h:64px;         /* default nav height */
-    }
-    @media (min-width:1024px){
-      :root{ --nav-h:72px; } /* a touch taller on large screens */
     }
 
     html{scroll-behavior:smooth}
 
-    /* Make every section fill the screen minus the fixed navbar */
-    .section{
-      min-height:calc(100vh - var(--nav-h));
-      display:flex;
-      align-items:center;
-      padding-top:calc(var(--nav-h) + 16px); /* content never hides under nav */
-      padding-bottom:32px;
-    }
-
     .mobile-menu-transition{transition:all .3s ease-in-out}
     .card-hover{transition:transform .3s ease, box-shadow .3s ease}
     .card-hover:hover{transform:translateY(-5px);box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04)}
+
     .hero-text{
       background:linear-gradient(135deg,#1f2937 0%,#374151 100%);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
+
     .btn-primary{
       background:linear-gradient(135deg,var(--brand) 0%,var(--brand-600) 100%);
       transition:all .3s ease;
@@ -46,6 +35,7 @@
       transform:translateY(-2px);
       box-shadow:0 10px 20px rgba(37,106,41,.35);
     }
+
     .nav-link{position:relative;overflow:hidden}
     .nav-link::after{
       content:'';position:absolute;bottom:0;left:-100%;width:100%;height:2px;background:var(--brand);
@@ -63,9 +53,9 @@
 </head>
 <body class="font-sans bg-green-50">
   <!-- Navigation -->
-  <nav class="fixed w-full bg-white shadow-lg z-50 transition-all duration-300" style="height:var(--nav-h)">
-    <div class="container mx-auto px-4 lg:px-6 h-full">
-      <div class="flex items-center justify-between h-full">
+  <nav class="fixed w-full bg-white shadow-lg z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 lg:px-6 py-3">
+      <div class="flex items-center justify-between">
         <div class="text-xl lg:text-2xl font-bold" style="color:var(--brand)">
           <i class="fas fa-building mr-2"></i>
           <span>Ward Family Cleaning</span>
@@ -88,7 +78,7 @@
 
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="md:hidden mobile-menu-transition overflow-hidden max-h-0 opacity-0">
-        <div class="pt-2 pb-4 space-y-1">
+        <div class="pt-4 pb-2 space-y-1">
           <a href="#home" class="block px-4 py-3 hover:bg-green-100 rounded-lg transition duration-200">Home</a>
           <a href="#services" class="block px-4 py-3 hover:bg-green-100 rounded-lg transition duration-200">Services</a>
           <a href="#about" class="block px-4 py-3 hover:bg-green-100 rounded-lg transition duration-200">Our Family</a>
@@ -99,15 +89,16 @@
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section id="home" class="section bg-gradient-to-br from-green-100 via-green-50 to-white">
-    <div class="container mx-auto px-4 lg:px-6">
+  <!-- Hero Section -->
+  <section id="home" class="pt-16 bg-gradient-to-br from-green-100 via-green-50 to-white min-h-screen flex items-center">
+    <div class="container mx-auto px-4 lg:px-6 py-12 lg:py-16">
       <div class="grid lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
+        <!-- Text -->
         <div class="text-center lg:text-left">
           <h1 class="hero-text text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Your Trusted Commercial Cleaning Team ✨
           </h1>
-          <p class="text-lg md:text-xl mb-8 text-gray-600 max-w-2xl mx-auto lg:mx-0">
+          <p class="text-lg md:text-xl mb-8 text-gray-600 max-w-2xl">
             Professional cleaning services by the Ward family — Making businesses shine and guests smile!
           </p>
           <a href="#quote" class="btn-primary text-white px-6 md:px-8 py-3 md:py-4 rounded-full text-lg font-semibold inline-flex items-center">
@@ -116,19 +107,20 @@
           </a>
         </div>
 
+        <!-- Main hero image (updated) -->
         <div class="order-first lg:order-none">
-          <img src="https://github.com/HelloSpaghettiBot/Wardcleaning/blob/main/1000015892.png?raw=true"
-               alt="Professional cleaning in action"
+          <img src="https://raw.githubusercontent.com/HelloSpaghettiBot/Wardcleaning/refs/heads/main/IMG_20250906_145608.png"
+               alt="Ward Family Cleaning in action"
                class="w-full rounded-2xl shadow-xl object-cover h-72 md:h-96"/>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
-  <section id="services" class="section">
+  <!-- Services Section -->
+  <section id="services" class="min-h-screen flex items-center">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-10">
+      <div class="text-center mb-12">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">Our Services</h2>
         <p class="text-gray-600 max-w-2xl mx-auto">
           Specialized cleaning solutions for your business and rental properties 🧹
@@ -136,6 +128,7 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
+        <!-- Commercial Cleaning -->
         <div class="card-hover bg-white rounded-2xl shadow-lg p-6 lg:p-8">
           <div class="text-center mb-6">
             <i class="fas fa-building text-4xl lg:text-5xl" style="color:var(--brand)"></i>
@@ -150,6 +143,7 @@
           </ul>
         </div>
 
+        <!-- Airbnb Service -->
         <div class="card-hover bg-white rounded-2xl shadow-lg p-6 lg:p-8">
           <div class="text-center mb-6">
             <i class="fas fa-home text-4xl lg:text-5xl" style="color:var(--brand)"></i>
@@ -175,48 +169,39 @@
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about" class="section">
+  <!-- About Section -->
+  <section id="about" class="min-h-screen flex items-center">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-10">
+      <div class="text-center mb-12">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">About Us</h2>
         <p class="text-gray-600 max-w-2xl mx-auto">Family-owned, community-focused, detail-driven.</p>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
         <div class="flex justify-center">
-          <img
-            src="https://raw.githubusercontent.com/HelloSpaghettiBot/Wardcleaning/refs/heads/main/1000015868.png"
-            alt="Ward Family"
-            class="rounded-xl shadow-lg w-72 md:w-96 object-cover"
-          />
+          <img src="https://raw.githubusercontent.com/HelloSpaghettiBot/Wardcleaning/refs/heads/main/1000015868.png"
+               alt="Ward Family"
+               class="mx-auto rounded-xl shadow-lg w-72 md:w-96 object-cover"/>
         </div>
         <div>
           <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-3">Ward Family Cleaning</h3>
           <p class="text-green-900 text-base md:text-lg font-medium leading-relaxed">
-            Proudly run by <span class="font-semibold">Zakk Ward</span> and his mother, <span class="font-semibold">Katie</span>. As a devoted father of two,
-            Zakk is building a business to serve the community today and someday pass on to his children—
-            teaching that hard work, faith, and determination make anything possible.
+            Proudly run by <span class="font-semibold">Zakk Ward</span> and his mother, <span class="font-semibold">Katie</span>. 
+            As a devoted father of two, Zakk is building a business not only to serve the community today, 
+            but also to one day pass it on to his children — teaching that hard work, faith, and determination make anything possible.
           </p>
           <p class="text-gray-700 mt-4 leading-relaxed">
-            Every customer is treated like family, and every property receives the kind of personal attention
-            only a family-run business can provide. From offices to warehouses and rentals, we show up with pride,
-            professionalism, and a promise to make your space shine.
+            Every customer is treated like family, and every property is cared for with the personal attention and pride that only a family-run business can provide.
           </p>
-          <div class="mt-6">
-            <a href="#quote" class="btn-primary text-white px-6 py-3 rounded-full inline-flex items-center font-semibold">
-              <i class="fas fa-paper-plane mr-2"></i> Request a Free Quote
-            </a>
-          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Quote Form -->
-  <section id="quote" class="section">
+  <!-- Quote Form Section -->
+  <section id="quote" class="min-h-screen flex items-center">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-10">
+      <div class="text-center mb-12">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">Get a Free Quote!</h2>
         <p class="text-gray-600 max-w-2xl mx-auto">Let's discuss how we can help with your cleaning needs ✨</p>
       </div>
@@ -230,10 +215,10 @@
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="section bg-gradient-to-br from-green-100 to-green-50">
+  <!-- Contact Section -->
+  <section id="contact" class="min-h-screen flex items-center bg-gradient-to-br from-green-100 to-green-50">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-10">
+      <div class="text-center mb-12">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-800">Let's Talk!</h2>
         <p class="text-gray-600 max-w-2xl mx-auto">We're here to help with your cleaning needs 🤗</p>
       </div>
@@ -264,7 +249,7 @@
   <footer class="bg-green-200 text-gray-700 py-8">
     <div class="container mx-auto px-4 lg:px-6 text-center">
       <p class="text-lg">
-        Made with ❤️ by
+        Made with ❤️ by 
         <a href="https://tempoutlet.gumroad.com/" target="_blank" rel="noopener noreferrer" class="text-green-700 font-semibold hover:underline">
           TemplateOutlet
         </a>
@@ -296,39 +281,32 @@
     }
     mobileMenuBtn.addEventListener('click',toggleMobileMenu);
 
-    // Close on link click
+    // Close mobile menu when clicking on links
     document.querySelectorAll('#mobile-menu a').forEach(link=>{
       link.addEventListener('click',()=>{ if(isMenuOpen){ toggleMobileMenu(); }});
     });
 
-    // Close when clicking outside
+    // Close mobile menu when clicking outside
     document.addEventListener('click',(e)=>{
       if(isMenuOpen && !mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)){
         toggleMobileMenu();
       }
     });
 
-    // Smooth scroll with fixed-nav offset
+    // Smooth scrolling with offset for fixed navbar
     document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
       anchor.addEventListener('click',function(e){
         e.preventDefault();
         const target=document.querySelector(this.getAttribute('href'));
         if(target){
-          const y=target.getBoundingClientRect().top + window.pageYOffset - (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72);
+          const navHeight=document.querySelector('nav').offsetHeight || 72;
+          const y=target.getBoundingClientRect().top + window.pageYOffset - navHeight;
           window.scrollTo({top:y,behavior:'smooth'});
         }
       });
     });
 
-    // Extra shadow on scroll
-    window.addEventListener('scroll',()=>{
-      const nav=document.querySelector('nav');
-      if(window.scrollY>50){ nav.classList.add('shadow-xl'); }
-      else{ nav.classList.remove('shadow-xl'); }
-    });
-  </script>
-</body>
-</html>    // Add navbar shadow on scroll
+    // Add navbar shadow on scroll
     window.addEventListener('scroll',()=>{
       const nav=document.querySelector('nav');
       if(window.scrollY>50){ nav.classList.add('shadow-xl'); }
