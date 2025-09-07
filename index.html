@@ -20,7 +20,12 @@
       --brand-700:#1f5b23;
     }
 
-    html{scroll-behavior:smooth}
+    html{
+      scroll-behavior:smooth;
+      /* keep anchor targets clear of the fixed header */
+      scroll-padding-top:72px;
+    }
+
     /* Respect user's reduced motion preference */
     @media (prefers-reduced-motion: reduce) {
       .mobile-menu-transition,
@@ -64,7 +69,7 @@
       .hero-text{font-size:1.75rem}
     }
 
-    /* Utility to visually hide skip link until focused */
+    /* Visually hide skip link until focused */
     .skip-link{
       position: absolute;
       top: -40px;
@@ -78,6 +83,13 @@
       transition: top .18s ease;
     }
     .skip-link:focus{ top: 8px; outline: 3px solid rgba(37,106,41,.12); }
+
+    /* Take mobile menu out of normal flow so opening/closing doesn't change layout height */
+    #mobile-menu{
+      position:absolute;
+      left:0; right:0; top:100%; /* sits just under the nav bar */
+      will-change:max-height, opacity;
+    }
   </style>
 </head>
 <body class="font-sans bg-green-50 text-gray-800">
@@ -86,7 +98,7 @@
   <header>
     <!-- Navigation -->
     <nav class="fixed w-full bg-white z-50 transition-all duration-300" aria-label="Primary navigation" role="navigation">
-      <div class="container mx-auto px-4 lg:px-6 py-3 shadow-sm">
+      <div class="container mx-auto px-4 lg:px-6 py-3 shadow-sm relative">
         <div class="flex items-center justify-between">
           <div class="text-xl lg:text-2xl font-bold" style="color:var(--brand);">
             <i class="fas fa-building mr-2" aria-hidden="true"></i>
@@ -108,9 +120,9 @@
           </button>
         </div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden mobile-menu-transition overflow-hidden max-h-0 opacity-0" aria-hidden="true">
-          <div class="pt-4 pb-2 space-y-1">
+        <!-- Mobile Menu (absolute under the nav; does not alter page height) -->
+        <div id="mobile-menu" class="md:hidden mobile-menu-transition overflow-hidden max-h-0 opacity-0 bg-white shadow-lg rounded-b-xl">
+          <div class="pt-2 pb-3 space-y-1">
             <a href="#home" class="block px-4 py-3 hover:bg-green-100 rounded-lg transition duration-200">Home</a>
             <a href="#services" class="block px-4 py-3 hover:bg-green-100 rounded-lg transition duration-200">Services</a>
             <a href="#about" class="block px-4 py-3 hover:bg-green-100 rounded-lg transition duration-200">Our Family</a>
@@ -297,19 +309,21 @@
 
   <script>
     (function () {
-      // Cache DOM elements safely
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
       const menuIcon = document.getElementById('menu-icon');
       const nav = document.querySelector('nav');
 
       let isMenuOpen = false;
+      const MENU_TRANSITION_MS = 280; // keep in sync with CSS transition
 
       function setMenuState(open) {
         isMenuOpen = !!open;
         if (!mobileMenuBtn || !mobileMenu || !menuIcon) return;
-        mobileMenu.style.maxHeight = isMenuOpen ? mobileMenu.scrollHeight + 'px' : '0';
-        mobileMenu.style.opacity = isMenuOpen ? '1' : '0';
+
+        const targetMax = isMenuOpen ? mobileMenu.scrollHeight + 'px' : '0px';
+        mobileMenu.style.maxHeight = targetMax;
+        mobileMenu.style.opacity   = isMenuOpen ? '1' : '0';
         mobileMenu.setAttribute('aria-hidden', isMenuOpen ? 'false' : 'true');
         mobileMenuBtn.setAttribute('aria-expanded', isMenuOpen ? 'true' : 'false');
 
@@ -323,26 +337,30 @@
         mobileMenuBtn.addEventListener('click', toggleMobileMenu);
       }
 
-      // Close mobile menu when a mobile link is clicked
-      if (mobileMenu) {
-        mobileMenu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => { if (isMenuOpen) setMenuState(false); });
-        });
-      }
-
-      // Close mobile menu when clicking outside or pressing Escape
+      // Close on outside click / Escape
       document.addEventListener('click', (e) => {
         if (!isMenuOpen) return;
         if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
           setMenuState(false);
         }
       });
-
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && isMenuOpen) setMenuState(false);
       });
 
-      // Smooth scrolling offset for fixed nav (ignore links with href="#")
+      // Smooth scrolling with stable offset. Close menu first if open.
+      function scrollToHash(hash) {
+        if (!hash || hash === '#') return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+
+        const navHeight = (nav && nav.offsetHeight) || 72;
+        const cushion = 6; // helps avoid peeking next section after URL bar collapse
+        const y = target.getBoundingClientRect().top + window.pageYOffset - navHeight - cushion;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+
+      // Attach to all in-page anchors (both desktop and mobile)
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           const href = this.getAttribute('href');
@@ -350,9 +368,26 @@
           const target = document.querySelector(href);
           if (!target) return;
           e.preventDefault();
-          const navHeight = (document.querySelector('nav') && document.querySelector('nav').offsetHeight) || 72;
-          const y = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-          window.scrollTo({ top: y, behavior: 'smooth' });
+
+          const runScroll = () => scrollToHash(href);
+
+          if (isMenuOpen) {
+            setMenuState(false);
+
+            // Prefer transitionend; fallback to timeout
+            let finished = false;
+            const onEnd = (evt) => {
+              if (evt && evt.target !== mobileMenu) return;
+              if (finished) return;
+              finished = true;
+              mobileMenu.removeEventListener('transitionend', onEnd);
+              requestAnimationFrame(runScroll);
+            };
+            mobileMenu.addEventListener('transitionend', onEnd, { once: true });
+            setTimeout(() => { if (!finished) onEnd({ target: mobileMenu }); }, MENU_TRANSITION_MS + 40);
+          } else {
+            runScroll();
+          }
         });
       });
 
@@ -362,13 +397,4 @@
         if (!ticking) {
           window.requestAnimationFrame(function () {
             if (window.scrollY > 50) nav.classList.add('shadow-xl');
-            else nav.classList.remove('shadow-xl');
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
-    })();
-  </script>
-</body>
-</html>
+   
